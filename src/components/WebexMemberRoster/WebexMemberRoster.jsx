@@ -24,11 +24,37 @@ import useMemberships from '../hooks/useMemberships';
  */
 export default function WebexMemberRoster({destinationID, destinationType}) {
   const memberships = useMemberships(destinationID, destinationType);
-  const members = memberships.map(
+
+  const getMembersNode = (data) => (data || []).map(
     (member) => <WebexMember key={member.personID} personID={member.personID} />,
   );
 
-  return <div className={`${WEBEX_COMPONENTS_CLASS_PREFIX}-roster`}>{members}</div>;
+  if (destinationType !== 'meeting') {
+    return <div className={`${WEBEX_COMPONENTS_CLASS_PREFIX}-roster`}>{getMembersNode(memberships)}</div>;
+  }
+
+  const groupBy = (items, key) => items.reduce(
+    (result, item) => ({
+      ...result,
+      [item[key]]: [
+        ...(result[item[key]] || []),
+        item,
+      ],
+    }),
+    {},
+  );
+
+  const groupedMembers = groupBy(memberships, 'isInMeeting');
+
+  return (
+    <div className={`${WEBEX_COMPONENTS_CLASS_PREFIX}-roster-container`}>
+      <div className={`${WEBEX_COMPONENTS_CLASS_PREFIX}-roster-separator`}>In Meeting</div>
+      <div className={`${WEBEX_COMPONENTS_CLASS_PREFIX}-roster`}>{getMembersNode(groupedMembers.true)}</div>
+
+      <div className={`${WEBEX_COMPONENTS_CLASS_PREFIX}-roster-separator`}>Not in Meeting</div>
+      <div className={`${WEBEX_COMPONENTS_CLASS_PREFIX}-roster`}>{getMembersNode(groupedMembers.false)}</div>
+    </div>
+  );
 }
 
 WebexMemberRoster.propTypes = {
