@@ -1,0 +1,6 @@
+.#{$WEBEX_COMPONENTS_CLASS_PREFIX}-roster-separator {
+    @include body-fonts;
+    color: $md-gray-40;
+    border-bottom: 1px solid $md-gray-30;
+  }
+  

@@ -4,10 +4,10 @@ export default {
     destinationID: 'room1',
     destinationType: 'room',
     members: [
-      {personID: 'user1'},
-      {personID: 'user2'},
-      {personID: 'user3'},
-      {personID: 'user4'},
+      {personID: 'user1', isInMeeting: true},
+      {personID: 'user2', isInMeeting: false},
+      {personID: 'user3', isInMeeting: true},
+      {personID: 'user4', isInMeeting: true},
     ],
   },
   membership2: {
@@ -15,9 +15,9 @@ export default {
     destinationID: 'room2',
     destinationType: 'room',
     members: [
-      {personID: 'user1'},
-      {personID: 'user5'},
-      {personID: 'user6'},
+      {personID: 'user1', isInMeeting: false},
+      {personID: 'user5', isInMeeting: false},
+      {personID: 'user6', isInMeeting: true},
     ],
   },
   membership3: {
@@ -25,9 +25,9 @@ export default {
     destinationID: 'meeting1',
     destinationType: 'meeting',
     members: [
-      {personID: 'user1'},
-      {personID: 'user2'},
-      {personID: 'user3'},
+      {personID: 'user1', isInMeeting: false},
+      {personID: 'user2', isInMeeting: true},
+      {personID: 'user3', isInMeeting: true},
     ],
   },
   membership4: {
